@@ -26,9 +26,10 @@ cd your-repo-name
 
 2. Create a virtual environment (recommended):
 
-```python -m venv venv
-source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 ```
+python -m venv venv
+python -m venv venv
+source venv/bin/activate
 3. Install the required dependencies:
 ```
 pip install -r requirements.txt
