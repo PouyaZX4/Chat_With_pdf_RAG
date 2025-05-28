@@ -18,20 +18,19 @@ This project implements a **Retrieval-Augmented Generation (RAG)** system for co
 * **Prototype Caution:** *Note:* This project is a research/demo prototype and is not production-ready. It is intended for experimentation and exploration, not deployment.
 
 ## Installation
-Clone the repository:
-
+1. Clone the repository:
+```
 git clone https://github.com/PouyaZX4/PDF_Chatbot_with_HF_LLM.git
 cd your-repo-name
+```
 
-(Remember to replace your-username/your-repo-name with your actual GitHub repository details.)
+2. Create a virtual environment (recommended):
 
-Create a virtual environment (recommended):
-
-python -m venv venv
+```python -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-
-Install the required dependencies:
-
+```
+3. Install the required dependencies:
+```
 pip install -r requirements.txt
 
 (You'll need to create a requirements.txt file. See the next section.)
@@ -47,14 +46,14 @@ langchain-huggingface
 langchain-community
 sentence-transformers
 torch
-
-Running the Application
+```
+4. Running the Application
 Ensure your virtual environment is active.
-
+```
 Run the Streamlit application:
 
 streamlit run main.py
-
+```
 Open your web browser and navigate to the URL displayed in your terminal (usually http://localhost:8501).
 ## How It Works
 
