@@ -30,7 +30,7 @@ pip (Python package installer)
 Installation
 Clone the repository:
 
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/PouyaZX4/PDF_Chatbot_with_HF_LLM.git
 cd your-repo-name
 
 (Remember to replace your-username/your-repo-name with your actual GitHub repository details.)
@@ -77,22 +77,46 @@ Ask Questions: Once processing is complete, a text input field will appear. Type
 Get Answers: The AI chatbot will respond with an answer based only on the information found within your uploaded documents. If it cannot find an answer in the provided context, it will state "I don’t know."
 
 ⚙️ Project Structure
-main.py: The main Streamlit application script. It handles PDF uploading, text processing, LLM loading, LangChain integration, and the overall UI flow.
+main.py: The core Streamlit application script. It orchestrates PDF handling, LLM interaction, and the user interface.
 
-htmlTemplate.py: Contains custom HTML and CSS templates for styling the chat messages within the Streamlit interface, providing a more engaging user experience.
+htmlTemplate.py: Defines the visual styling for the chat messages, ensuring a consistent and appealing look for user and bot interactions.
 
 🧠 Technical Details
-Language Model: Qwen/Qwen2-1.5B from Hugging Face, loaded via AutoModelForCausalLM and AutoTokenizer.
+This section dives a bit deeper into the technical implementation, explaining how different components work together in main.py and htmlTemplate.py.
 
-Text Processing: PyPDF2 for reading PDF content and RecursiveCharacterTextSplitter from LangChain for chunking text.
+Language Model (Qwen/Qwen2-1.5B):
 
-Embeddings: HuggingFaceEmbeddings with all-MiniLM-L6-v2 model for converting text chunks into vector representations.
+Implementation: In main.py, the load_model() function is responsible for downloading and initializing the Qwen/Qwen2-1.5B model and its tokenizer from Hugging Face. It then wraps this into a HuggingFacePipeline for easy integration with LangChain. This model is the brain of the chatbot, responsible for generating human-like responses.
 
-Vector Store: Chroma is used to store and retrieve document embeddings efficiently.
+Text Processing (PyPDF2 & RecursiveCharacterTextSplitter):
 
-Retrieval-Augmented Generation (RAG): LangChain's PromptTemplate, RunnablePassthrough, and RunnableLambda are used to construct a robust Q&A chain that retrieves relevant document chunks before generating a response.
+Implementation: When PDFs are uploaded in main.py, PyPDF2.PdfReader is used to extract raw text from each page. This raw text is then passed to get_text_chunks(), which employs LangChain's RecursiveCharacterTextSplitter. This splitter breaks down the large text into smaller, manageable "chunks" (of 500 characters with 200 characters overlap) to optimize embedding and retrieval processes.
 
-Frontend: Streamlit provides the interactive web interface.
+Embeddings (HuggingFaceEmbeddings with all-MiniLM-L6-v2):
+
+Implementation: The get_vectorstore() function in main.py takes these text chunks and converts them into numerical vector representations using HuggingFaceEmbeddings with the all-MiniLM-L6-v2 model. These embeddings capture the semantic meaning of the text, allowing for efficient similarity searches.
+
+Vector Store (Chroma):
+
+Implementation: Once the text chunks are embedded, Chroma.from_texts() is used in get_vectorstore() to create a Chroma vector store. This database stores the text chunks alongside their embeddings, making it quick to retrieve relevant information based on a user's query.
+
+Retrieval-Augmented Generation (RAG) Chain:
+
+Implementation: The get_qa_chain() function in main.py constructs the core RAG pipeline using LangChain.
+
+It defines a PromptTemplate that guides the LLM to answer questions only based on the provided textbook_context.
+
+The retriever (created from the Chroma vector store) fetches the most relevant text chunks (context) based on the user's question.
+
+RunnablePassthrough and RunnableLambda are used to pass the question, retrieved context, and (optionally) student profile and conversation history to the prompt.
+
+Finally, the llm processes the prompt and context, and StrOutputParser() extracts the generated answer as a string. This entire chain ensures that the LLM's responses are grounded in the uploaded PDF content.
+
+Frontend (Streamlit & htmlTemplate.py):
+
+Implementation: main.py uses Streamlit's st.set_page_config, st.sidebar.file_uploader, st.sidebar.button, and st.text_input to create the interactive web interface.
+
+htmlTemplate.py provides the css, user_template, and bot_template strings. These are injected into the Streamlit app using st.markdown(..., unsafe_allow_html=True) to give the chat messages a custom, visually appealing look with avatars and distinct styling for user and bot messages.
 
 🤝 Contributing
 Contributions are welcome! If you have suggestions for improvements, new features, or bug fixes, please open an issue or submit a pull request.
@@ -112,4 +136,4 @@ Open a Pull Request.
 📄 License
 This project is open-source and available under the MIT License.
 
-by [Pouya/PouyaZX4]
+Made with ❤️ by [Pouya/PouyaZX4]
