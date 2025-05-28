@@ -17,6 +17,45 @@ This project implements a **Retrieval-Augmented Generation (RAG)** system for co
 * **GPU Acceleration:** If a CUDA-capable GPU is available, the system will use it (through PyTorch) to speed up embedding computation and text generation.
 * **Prototype Caution:** *Note:* This project is a research/demo prototype and is not production-ready. It is intended for experimentation and exploration, not deployment.
 
+## Installation
+Clone the repository:
+
+git clone https://github.com/PouyaZX4/PDF_Chatbot_with_HF_LLM.git
+cd your-repo-name
+
+(Remember to replace your-username/your-repo-name with your actual GitHub repository details.)
+
+Create a virtual environment (recommended):
+
+python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+
+Install the required dependencies:
+
+pip install -r requirements.txt
+
+(You'll need to create a requirements.txt file. See the next section.)
+
+requirements.txt
+Create a file named requirements.txt in the root of your project and add the following content:
+
+streamlit
+PyPDF2
+transformers
+langchain
+langchain-huggingface
+langchain-community
+sentence-transformers
+torch
+
+Running the Application
+Ensure your virtual environment is active.
+
+Run the Streamlit application:
+
+streamlit run main.py
+
+Open your web browser and navigate to the URL displayed in your terminal (usually http://localhost:8501).
 ## How It Works
 
 1. **Upload and Preprocessing:** The user uploads PDFs via the web app. The app reads each PDF (e.g. using PyMuPDF) and splits the text into manageable chunks (e.g. paragraphs or fixed-length segments).
