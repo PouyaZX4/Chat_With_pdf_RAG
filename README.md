@@ -30,24 +30,10 @@ cd your-repo-name
 python -m venv venv
 python -m venv venv
 source venv/bin/activate
+```
 3. Install the required dependencies:
-
+```
 pip install -r requirements.txt
-```
-3. Install the required dependencies:
-(You'll need to create a requirements.txt file. See the next section.)
-```
-requirements.txt
-Create a file named requirements.txt in the root of your project and add the following content:
-
-streamlit
-PyPDF2
-transformers
-langchain
-langchain-huggingface
-langchain-community
-sentence-transformers
-torch
 ```
 4. Running the Application
 Ensure your virtual environment is active.
